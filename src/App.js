@@ -9,7 +9,7 @@ function App() {
     api.get('/repositories').then(response=>{
     setRepositories(response.data)
     })
-  },[repositories])
+  },[])
 
   async function handleAddRepository() {
 
@@ -25,13 +25,10 @@ function App() {
 
   async function handleRemoveRepository(id) {
    const response = await api.delete(`/repositories/${id}`)
-     const repositoryIndex = repositories.findIndex(respository=> respository.id === id)  
+     const repositoryUpdate = repositories.filter(respository=> respository.id != id)  
 
-      repositories.splice(repositories[repositoryIndex],1)
-    
-     return;
-    
-   
+     setRepositories(repositoryUpdate)
+  
   }
 
   return (
